@@ -29,14 +29,25 @@ public class Login extends AppCompatActivity {
         startActivity(back);
         finish();
     }
+
+    //Metodo para iniciar sesión
     public void Login(View view){
+        //se guradan los valores en cadenas de texto
         String username = etUsername.getText().toString();
         String password = etPassword.getText().toString();
 
+        //se verifica si todos los campos tienen un valor
         if(!username.isEmpty() && !password.isEmpty()){
+
+            //se verifica si existe el nombre de usuario
             boolean checkUser = DBUsers.CheckUser(username);
             if(checkUser == false){
+
+                // si el usuario y contraseña coinciden se guarda el tipo de usuario en checkUserPass
+                //si no coinciden checkUserPass guarda una cadena vacia
                 String checkUserPass = DBUsers.CheckUserPass(username, password);
+
+                //se verifica el tipo de usuario para enviarlo a su respectiva Activity
                 if(checkUserPass.equals("cliente")){
                     Toast.makeText(getApplicationContext(),"¡Inicio de sesión exitoso!",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(),loginClient.class);
@@ -48,10 +59,10 @@ public class Login extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }else{
-                    Toast.makeText(getApplicationContext(),"¡El usuario o la contraseña son incorrectos!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"¡La contraseña es incorrecta!",Toast.LENGTH_SHORT).show();
                 }
             }else{
-                Toast.makeText(getApplicationContext(),"El usuario ne existe",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"El usuario no existe",Toast.LENGTH_SHORT).show();
             }
         }else{
             Toast.makeText(getApplicationContext(),"Rellene todos los campos",Toast.LENGTH_SHORT).show();

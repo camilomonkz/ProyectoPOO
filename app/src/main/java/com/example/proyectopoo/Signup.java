@@ -29,23 +29,28 @@ public class Signup extends AppCompatActivity {
         btStore = (RadioButton)findViewById(R.id.store);
         DBUsers = new DBAdmin(this);
     }
-
+    //Metodo para registrarse
     public void SignUp(View view){
+        //los datos se almacenas en cadenas de texto
         String username = etUsername.getText().toString();
         String fullname = etFullname.getText().toString();
         String password = etPassword.getText().toString();
         String rePassword = etRepassword.getText().toString();
 
+        //se verifica si todos los campos tienen un valor
         if(!username.isEmpty() && !password.isEmpty() && !fullname.isEmpty() && !rePassword.isEmpty() && (btClient.isChecked() || btStore.isChecked())){
             if(password.equals(rePassword)){
+                //se verifica que el usuario no este en la tabla
                 boolean checkUser = DBUsers.CheckUser(username);
                     if(checkUser == true){
+                        //se verifica que tipo de usuario se registra
                         String typeofuser = "";
                         if(btClient.isChecked()){
                             typeofuser = "cliente";
                         }else if(btStore.isChecked()){
                             typeofuser = "tienda";
                         }
+                        //se verifica si la base de datos guardo correctamente los datos
                         boolean singup = DBUsers.SingUp(username,password,fullname,typeofuser);
                         if(singup == true){
                             Toast.makeText(getApplicationContext(),"¡Registro exitoso!",Toast.LENGTH_SHORT).show();
@@ -62,7 +67,7 @@ public class Signup extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Las contraseñas no coinciden",Toast.LENGTH_SHORT).show();
             }
         }else{
-            Toast.makeText(getApplicationContext(),"Rellene todos los campos",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"Rellene todos los campos",Toast.LENGTH_SHORT).show();
         }
     }
     public void Back(View view){
