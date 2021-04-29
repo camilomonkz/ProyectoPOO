@@ -1,5 +1,7 @@
 package com.example.proyectopoo;
 
+import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,20 +10,31 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+
 public class Login extends AppCompatActivity {
-
-    private EditText etUsername, etPassword;
-    private DBAdmin DBUsers;
-
+    //[INICIO declaracion de variables]
+    private EditText etEmail, etPassword;
+    //[FIN declaracion de variables]
+    //[INICIO declaracion de variable firebase]
+    private FirebaseAuth firebaseAuth;
+    //[FIN declaracion de variable firebase]
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        etUsername = (EditText)findViewById(R.id.usernamein);
+        //[INICIO inicializacion de variables]
+        etEmail = (EditText)findViewById(R.id.emailin);
         etPassword = (EditText)findViewById(R.id.passwordin);
-        DBUsers = new DBAdmin(this);
+        firebaseAuth = FirebaseAuth.getInstance();
+        //[FIN inicializacion de variables]
+
     }
 
     public void Back(View view){
@@ -33,40 +46,44 @@ public class Login extends AppCompatActivity {
     //Metodo para iniciar sesión
     public void Login(View view){
         //se guradan los valores en cadenas de texto
-        String username = etUsername.getText().toString();
+        String email = etEmail.getText().toString();
         String password = etPassword.getText().toString();
 
-        //se verifica si todos los campos tienen un valor
-        if(!username.isEmpty() && !password.isEmpty()){
-
-            //se verifica si existe el nombre de usuario
-            boolean checkUser = DBUsers.CheckUser(username);
-            if(checkUser == false){
-
-                // si el usuario y contraseña coinciden se guarda el tipo de usuario en checkUserPass
-                //si no coinciden checkUserPass guarda una cadena vacia
-                String checkUserPass = DBUsers.CheckUserPass(username, password);
-
-                //se verifica el tipo de usuario para enviarlo a su respectiva Activity
-                if(checkUserPass.equals("cliente")){
-                    Toast.makeText(getApplicationContext(),"¡Inicio de sesión exitoso!",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(),loginClient.class);
-                    startActivity(intent);
-                    finish();
-                }else if(checkUserPass.equals("tienda")){
-                    Toast.makeText(getApplicationContext(),"¡Inicio de sesión exitoso!",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(),loginStore.class);
-                    startActivity(intent);
-                    finish();
-                }else{
-                    Toast.makeText(getApplicationContext(),"¡La contraseña es incorrecta!",Toast.LENGTH_SHORT).show();
+        //se verifica que todos los campos tengan valor diferente a vacio
+        if(!email.isEmpty() && !password.isEmpty()) {
+            //Metodo firebase verifica que el email exista y que coincida con la contraseña
+            firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful()){
+                        Toast.makeText(getApplicationContext(), "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
+                        FirebaseUser user = firebaseAuth.getCurrentUser();
+                        Intent signIn = new Intent(getApplicationContext(),loginClient.class);
+                        startActivity(signIn);
+                        finish();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Usuairo o contraseña incorrecto", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }else{
-                Toast.makeText(getApplicationContext(),"El usuario no existe",Toast.LENGTH_SHORT).show();
-            }
+            });
+
+
         }else{
-            Toast.makeText(getApplicationContext(),"Rellene todos los campos",Toast.LENGTH_SHORT).show();
+            if(email.isEmpty()){
+                etEmail.setError("Falta el correo electronico");
+            }else if(password.isEmpty()){
+                etPassword.setError("Falta la contraseña");
+            }
         }
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if(currentUser != null){
+            firebaseAuth.signOut();
+        }
     }
 }

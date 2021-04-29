@@ -7,14 +7,14 @@
     tools:context=".Signup">
 
     <EditText
-        android:id="@+id/usernameup"
+        android:id="@+id/emailup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
         android:layout_marginLeft="80dp"
         android:layout_marginTop="36dp"
         android:ems="10"
-        android:hint="@string/username"
+        android:hint="@string/email"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,7 +30,7 @@
         android:hint="@string/fullname"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameup" />
+        app:layout_constraintTop_toBottomOf="@+id/emailup" />
 
     <EditText
         android:id="@+id/passwordup"
