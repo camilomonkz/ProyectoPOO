@@ -61,14 +61,12 @@ public class Signup extends AppCompatActivity {
         String password = etPassword.getText().toString().trim();
         String rePassword = etRepassword.getText().toString().trim();
         final String[] typeOfUser = {""};
-
         //se verifica que todos los campos tengan valor diferente a vacio
-        if (!email.isEmpty() && !fullname.isEmpty() && !password.isEmpty() && !rePassword.isEmpty() && (btStore.isChecked() || btClient.isChecked())){
+        if(!email.isEmpty() && !fullname.isEmpty() && !password.isEmpty() && !rePassword.isEmpty() && (btStore.isChecked() || btClient.isChecked())){
 
             //se verifica que la contraseña tenga más de 6 caracteres y que coincidan las contraseñas
-            if((password.length()> 6)&& password.equals(rePassword)) {
+            if((password.length()> 6) && rePassword.equals(password)) {
 
-                //Metodo que crea el usuario con email y contraseña en firebase
                 firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -79,8 +77,10 @@ public class Signup extends AppCompatActivity {
                             String userID = user.getUid();
                             //crea una lista para guardar los datos de usuaro (nombre, tipo de cliente)
                             //se guarda en un documento que relaciona el id con los datos
-                            DocumentReference documentReference = firebaseFirestore.collection("Users").document(userID);
-                            //guarda los datos en un map
+                            DocumentReference documentReference = firebaseFirestore
+                                    .collection("Users")
+                                    .document(userID);
+                            //Guardar los datos en un map
                             Map<String,Object> dataUser = new HashMap<>();
 
                             if(btClient.isChecked()){
@@ -89,13 +89,16 @@ public class Signup extends AppCompatActivity {
                                 typeOfUser[0] = "tienda";
                             }
 
-                            dataUser.put("nombre completo",fullname);
-                            dataUser.put("tipo de cliente",typeOfUser[0]);
+                            dataUser.put("fullname",fullname);
+                            dataUser.put("typeOfUser",typeOfUser[0]);
                             //se envia el map con los datos de usuario para que se guarden
                             documentReference.set(dataUser).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
-                                public void onSuccess(Void aVoid) {
+                                public void onSuccess(Void aVoid){
                                     Toast.makeText(getApplicationContext(), "¡Registro exitoso!", Toast.LENGTH_SHORT).show();
+                                    Intent logIn = new Intent(getApplicationContext(), Login.class);
+                                    startActivity(logIn);
+                                    finish();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
@@ -104,19 +107,17 @@ public class Signup extends AppCompatActivity {
                                 }
                             });
 
-                            Intent logIn = new Intent(getApplicationContext(), Login.class);
-                            startActivity(logIn);
-                            finish();
-                        } else {
+                        }else{
                             Toast.makeText(getApplicationContext(), "Error en el registro", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+
             }else{
                 if(password.length() <= 6){
                     etPassword.setError("La contraseña debe tener más de 6 caracteres");
-                }else if(!password.equals(password)){
-                    Toast.makeText(getApplicationContext(),"Las contraseñas no coinciden",Toast.LENGTH_SHORT).show();
+                }else if(!password.equals(rePassword)){
+                    etPassword.setError("La contraseñas no coinciden");
                 }
             }
         }else{
@@ -129,7 +130,7 @@ public class Signup extends AppCompatActivity {
             }else if(rePassword.isEmpty()){
                 etRepassword.setError("Repita la contraseña");
             }else if(!btClient.isChecked() && !btStore.isChecked()){
-                Toast.makeText(getApplicationContext(),"seleccione el tipo de usuario",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Seleccione el tipo de usuario",Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -141,7 +142,7 @@ public class Signup extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
+    protected void onStart(){
         super.onStart();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if(currentUser!= null){

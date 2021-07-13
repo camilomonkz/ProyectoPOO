@@ -9,4 +9,10 @@
     <string name="backBtn">Atrás</string>
     <string name="store">Tienda</string>
     <string name="client">Cliente</string>
+    <string name="signUpProduct">Registrar producto</string>
+    <string name="nameProduct">Nombre del producto</string>
+    <string name="descriptionProduct">Descripción del producto</string>
+    <string name="priceProuct">Precio</string>
+    <string name="stockProduct">Número de existencias</string>
+    <string name="myproducts">Mis productos</string>
 </resources>

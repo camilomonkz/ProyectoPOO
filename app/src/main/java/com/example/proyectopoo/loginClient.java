@@ -22,7 +22,7 @@ public class loginClient extends AppCompatActivity {
     //[FIN declaracion de variables]
     //[INICIO declaracion de variables firebase]
     private FirebaseFirestore firebaseFirestore;
-    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth firebaseAuth;  
     //[FIN declaracion de variables]
 
     @Override
@@ -45,20 +45,11 @@ public class loginClient extends AppCompatActivity {
         //se accede a la lista
         DocumentReference documentReference = firebaseFirestore.collection("Users").document(userID);
 
-        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
-                //se recuperan los datos de la lista y se muestran en pantalla
-                tvFullnameUser.setText(documentSnapshot.getString("nombre completo"));
-                tvTypeofuserInfo.setText(documentSnapshot.getString("tipo de cliente"));
-            }
-        });
-
 
     }
     public void Back(View view){
         firebaseAuth.signOut();
-        Intent back = new Intent(getApplicationContext(),MainActivity.class);
+        Intent back = new Intent(getApplicationContext(),Login.class);
         startActivity(back);
         finish();
     }

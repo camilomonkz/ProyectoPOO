@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoPOO">
-        <activity android:name=".loginStore"></activity>
+        <activity android:name=".ProgressBarLogin"></activity>
+        <activity android:name=".ProductViewStrore" />
+        <activity android:name=".AddProduct" />
+        <activity android:name=".loginStore" />
         <activity android:name=".loginClient" />
         <activity android:name=".Signup" />
         <activity android:name=".Login" />

@@ -56,9 +56,7 @@ public class Login extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-                        Toast.makeText(getApplicationContext(), "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
-                        FirebaseUser user = firebaseAuth.getCurrentUser();
-                        Intent signIn = new Intent(getApplicationContext(),loginClient.class);
+                        Intent signIn = new Intent(getApplicationContext(),ProgressBarLogin.class);
                         startActivity(signIn);
                         finish();
                     }else{
