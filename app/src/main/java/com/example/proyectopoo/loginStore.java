@@ -1,16 +1,20 @@
 package com.example.proyectopoo;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class loginStore extends AppCompatActivity {
-    private Button singUpProductActivity;
-    private TextView info;
+    private ImageButton singUpProductActivity;
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,12 +27,9 @@ public class loginStore extends AppCompatActivity {
         if(takeObject != null){
             store = (Store) takeObject.getSerializable("Store");
         }
-        info = (TextView)findViewById(R.id.textViewStore);
-        singUpProductActivity = (Button)findViewById(R.id.signUpProductActivity);
+        singUpProductActivity = (ImageButton)findViewById(R.id.signUpProductActivity);
 
         Store finalStore = store;
-
-        info.setText(finalStore.getId());
 
         singUpProductActivity.setOnClickListener(new View.OnClickListener() {
             @Override

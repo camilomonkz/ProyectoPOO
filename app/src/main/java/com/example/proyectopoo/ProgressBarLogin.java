@@ -45,43 +45,43 @@ public class ProgressBarLogin extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                            @Override
-                            public void onEvent(@Nullable DocumentSnapshot value, FirebaseFirestoreException error) {
-                                if(value.getString("typeOfUser").equals("tienda")){
-                                    Store store = new Store(user.getEmail(),
-                                            value.getString("fullname"),
-                                            value.getString("typeOfUser"),
-                                            userID);
+                documentReference.addSnapshotListener( new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot value, FirebaseFirestoreException error) {
+                        if(value.getString("typeOfUser").equals("tienda")){
+                            Store store = new Store(user.getEmail(),
+                                    value.getString("fullname"),
+                                    value.getString("typeOfUser"),
+                                    userID);
 
-                                    Intent intent = new Intent(getApplicationContext(),loginStore.class);
-                                    Bundle bundle = new Bundle();
+                            Intent intent = new Intent(getApplicationContext(),loginStore.class);
+                            Bundle bundle = new Bundle();
 
-                                    bundle.putSerializable("Store",store);
+                            bundle.putSerializable("Store",store);
 
-                                    intent.putExtras(bundle);
+                            intent.putExtras(bundle);
 
-                                    startActivity(intent);
-                                    finish();
-                                }else{
-                                    Client client = new Client(user.getEmail(),
-                                            value.getString("fullname"),
-                                            value.getString("typeOfUser"),
-                                            userID);
+                            startActivity(intent);
+                            finish();
+                        }else{
+                            Client client = new Client(user.getEmail(),
+                                    value.getString("fullname"),
+                                    value.getString("typeOfUser"),
+                                    userID);
 
-                                    Intent intent = new Intent(getApplicationContext(),loginClient.class);
-                                    Bundle bundle = new Bundle();
+                            Intent intent = new Intent(getApplicationContext(),loginClient.class);
+                            Bundle bundle = new Bundle();
 
-                                    bundle.putSerializable("Client",client);
+                            bundle.putSerializable("Client",client);
 
-                                    intent.putExtras(bundle);
+                            intent.putExtras(bundle);
 
-                                    startActivity(intent);
-                                    finish();
-                                }
-                                Toast.makeText(getApplicationContext(),"Inicio de sesión exitoso",Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                            startActivity(intent);
+                            finish();
+                        }
+                        Toast.makeText(getApplicationContext(),"Inicio de sesión exitoso",Toast.LENGTH_SHORT).show();
+                    }
+                });
 
             }
         }, 1500);
