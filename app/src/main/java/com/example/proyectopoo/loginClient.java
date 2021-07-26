@@ -41,9 +41,7 @@ public class loginClient extends AppCompatActivity {
         //se inicializa el usuario
         FirebaseUser user = firebaseAuth.getCurrentUser();
         //se captura el id del usuario
-        String userID = user.getUid();
-        //se accede a la lista
-        DocumentReference documentReference = firebaseFirestore.collection("Users").document(userID);
+
 
 
     }

@@ -67,7 +67,10 @@ public class AddProduct extends AppCompatActivity {
                         && !productPrice.isEmpty()
                         && !productStock.isEmpty()){
 
-                    Product product = new Product(productName, productDescription, Float.parseFloat(productPrice), Integer.parseInt(productStock));
+                    Product product = new Product(productName,
+                            productDescription,
+                            Float.parseFloat(productPrice),
+                            Integer.parseInt(productStock));
 
                     finalStore.setProduct(product, userID, getApplicationContext());
                 } else {
@@ -75,9 +78,9 @@ public class AddProduct extends AppCompatActivity {
                         etNameProduct.setError("Nombre del producto no especificado");
                     }else if (productDescription.isEmpty()){
                         etDescriptionProduct.setError("Descripción del producto no especificado");
-                    }else if (String.valueOf(productPrice).isEmpty()){
+                    }else if (productPrice.isEmpty()){
                         etPriceProduct.setError("Precio del producto no especificado");
-                    }else if (String.valueOf(productStock).isEmpty()) {
+                    }else if (productStock.isEmpty()) {
                         etStockProduct.setError("Existencias del producto no especificado");
                     }
 
@@ -88,13 +91,7 @@ public class AddProduct extends AppCompatActivity {
         verBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String productName = etNameProduct.getText().toString();
 
-                String userID = finalStore.getId();
-
-                provisional.setText(productName);
-
-                Log.d("ID",userID);
 
             }
         });

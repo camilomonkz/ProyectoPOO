@@ -23,12 +23,11 @@ public class loginStore extends AppCompatActivity {
         if(takeObject != null){
             store = (Store) takeObject.getSerializable("Store");
         }
+
         info = (TextView)findViewById(R.id.textViewStore);
         singUpProductActivity = (Button)findViewById(R.id.signUpProductActivity);
 
         Store finalStore = store;
-
-        info.setText(finalStore.getId());
 
         singUpProductActivity.setOnClickListener(new View.OnClickListener() {
             @Override

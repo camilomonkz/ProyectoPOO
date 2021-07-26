@@ -60,6 +60,7 @@ public class Signup extends AppCompatActivity {
         String fullname = etFullname.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
         String rePassword = etRepassword.getText().toString().trim();
+
         final String[] typeOfUser = {""};
         //se verifica que todos los campos tengan valor diferente a vacio
         if(!email.isEmpty() && !fullname.isEmpty() && !password.isEmpty() && !rePassword.isEmpty() && (btStore.isChecked() || btClient.isChecked())){
@@ -67,7 +68,9 @@ public class Signup extends AppCompatActivity {
             //se verifica que la contraseña tenga más de 6 caracteres y que coincidan las contraseñas
             if((password.length()> 6) && rePassword.equals(password)) {
 
-                firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                firebaseAuth
+                        .createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {

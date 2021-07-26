@@ -12,6 +12,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -38,7 +39,6 @@ public class Store extends User implements Serializable {
     }
 
     public void setEmail(String email) {
-
         this.email = email;
     }
 
@@ -62,7 +62,7 @@ public class Store extends User implements Serializable {
         return id;
     }
 
-    public void setProduct(Object product, String id, Context context) {
+    public void setProduct(Product product, String id, Context context) {
 
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
@@ -97,7 +97,7 @@ public class Store extends User implements Serializable {
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(context,"Error en el registro del producto   ",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context,"Error en el registro del producto",Toast.LENGTH_SHORT).show();
                                 }
                             });
                 }
@@ -105,6 +105,62 @@ public class Store extends User implements Serializable {
         },id,finalproduct.getName());
 
     }
+
+    public void editProductInfo(Product product, String id,Context context){
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+
+        DocumentReference documentReference = firebaseFirestore
+                .collection("Users")
+                .document(id)
+                .collection("Products")
+                .document(product.getId());
+
+        HashMap<String,Object> productInfo = new HashMap<>();
+
+        productInfo.put("name",product.getName());
+        productInfo.put("description",product.getDescription());
+        productInfo.put("price",product.getPrice());
+        productInfo.put("stock",product.getStock());
+
+        documentReference
+                .update(productInfo)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(context,"Producto editado exitosamente",Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(context,"Fallo en edicion del producto",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void deleteProduct(Product product,String id, Context context){
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+
+        DocumentReference documentReference = firebaseFirestore
+                .collection("Users")
+                .document(id)
+                .collection("Products")
+                .document(product.getId());
+
+        documentReference
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(context,"El producto se eliminó exitosamente",Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(context,"Error en la eliminación del producto",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void getInfo(FirestoreCallback firestoreCallback, String id, String productName){
 
         ArrayList<String> productList = new ArrayList<>();

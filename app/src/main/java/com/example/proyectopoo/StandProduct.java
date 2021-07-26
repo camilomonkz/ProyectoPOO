@@ -1,5 +1,7 @@
 package com.example.proyectopoo;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,27 +13,49 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 
 public class StandProduct extends FirestoreRecyclerAdapter< Product, StandProduct.ViewHolder> {
 
+    Store store;
 
-    /**
-     * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
-     * FirestoreRecyclerOptions} for configuration options.
-     *
-     * @param options
-     */
-    public StandProduct(@NonNull FirestoreRecyclerOptions<Product> options) {
+    public StandProduct(@NonNull FirestoreRecyclerOptions<Product> options, Store store) {
         super(options);
+        this.store = store;
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Product model) {
-        holder.productName.setText(model.getName());
-        holder.productDescription.setText(model.getDescription());
-        holder.productPrice.setText(String.valueOf(model.getPrice()));
-        holder.productStock.setText(String.valueOf(model.getStock()));
+    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Product product) {
+
+        DocumentSnapshot documentSnapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
+
+        final String productID = documentSnapshot.getId();
+
+        holder.productName.setText(product.getName());
+        holder.productDescription.setText(product.getDescription());
+        holder.productPrice.setText(String.valueOf(product.getPrice()));
+        holder.productStock.setText(String.valueOf(product.getStock()));
+
+        Product finalProduct = new Product(product.getName(),
+                product.getDescription(),
+                product.getPrice(),
+                product.getStock(),
+                productID);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(holder.itemView.getContext(),EditProduct.class);
+                Bundle bundel = new Bundle();
+
+                bundel.putSerializable("Store",store);
+                bundel.putSerializable("Product",finalProduct);
+
+                intent.putExtras(bundel);
+                holder.itemView.getContext().startActivity(intent);
+            }
+        });
     }
 
     @NonNull
@@ -53,5 +77,8 @@ public class StandProduct extends FirestoreRecyclerAdapter< Product, StandProduc
             productStock = itemView.findViewById(R.id.productStockEPV);
         }
 
+    }
+    interface RecyclerItemClick {
+        void itemClick();
     }
 }

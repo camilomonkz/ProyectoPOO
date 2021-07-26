@@ -15,4 +15,6 @@
     <string name="priceProuct">Precio</string>
     <string name="stockProduct">Número de existencias</string>
     <string name="myproducts">Mis productos</string>
+    <string name="editProduct">Modificar producto</string>
+    <string name="deleteProduct">Eliminar producto</string>
 </resources>

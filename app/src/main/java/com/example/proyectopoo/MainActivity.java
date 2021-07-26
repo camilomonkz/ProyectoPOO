@@ -19,11 +19,13 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
     }
     public void SignUpA(View view){
+        //Se instancia un Inten para inciar una nueva Activity
         Intent singUp = new Intent(getApplicationContext(),Signup.class);
         startActivity(singUp);
         finish();
     }
     public void LogInA(View view){
+        //Se instancia un Inten para inciar una nueva Activity
         Intent logIn = new Intent(getApplicationContext(),Login.class);
         startActivity(logIn);
         finish();

@@ -65,7 +65,7 @@ public class ProductViewStrore extends AppCompatActivity {
                 .setQuery(query,Product.class).build();
 
 
-        standProduct = new StandProduct(firestoreRecyclerOptions);
+        standProduct = new StandProduct(firestoreRecyclerOptions,finalStore);
         standProduct.notifyDataSetChanged();
 
         recyclerViewProducts.setAdapter(standProduct);
