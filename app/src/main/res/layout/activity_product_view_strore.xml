@@ -17,7 +17,7 @@
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         app:layout_constraintVertical_bias="0.048" />
@@ -26,11 +26,13 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="108dp"
         android:text="Mis Productos"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/backBtnMyProducts"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,6 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
+        app:backgroundTint="#E80049DC"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerStore"
         app:layout_constraintEnd_toEndOf="@+id/recyclerStore"
         app:layout_constraintHorizontal_bias="0.511"
@@ -51,14 +54,27 @@
         android:id="@+id/backBtnMyProducts"
         android:layout_width="64dp"
         android:layout_height="53dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:clickable="true"
-        app:backgroundTint="#FDFDFD"
+        app:backgroundTint="#DD0049DC"
         app:layout_constraintBottom_toTopOf="@+id/recyclerStore"
         app:layout_constraintEnd_toStartOf="@+id/textView2"
         app:layout_constraintHorizontal_bias="0.225"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
+        app:rippleColor="#FFFFFF"
         app:srcCompat="@drawable/abc_vector_test" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="567dp"
+        android:layout_height="95dp"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/banner"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-18dp"
+        tools:layout_editor_absoluteY="-10dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
