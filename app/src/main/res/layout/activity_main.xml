@@ -34,14 +34,4 @@
         app:layout_constraintTop_toBottomOf="@+id/button"
         app:srcCompat="@drawable/btnr1"  />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="567dp"
-        android:layout_height="95dp"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/banner"
-        tools:layout_editor_absoluteX="-14dp"
-        tools:layout_editor_absoluteY="-6dp"
-        tools:ignore="MissingConstraints" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
