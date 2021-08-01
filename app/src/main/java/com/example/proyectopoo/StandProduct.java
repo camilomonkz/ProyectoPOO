@@ -66,7 +66,7 @@ public class StandProduct extends FirestoreRecyclerAdapter< Product, StandProduc
         return new ViewHolder(view);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView productName, productDescription, productPrice, productStock;
 
         public ViewHolder(@NonNull View itemView){

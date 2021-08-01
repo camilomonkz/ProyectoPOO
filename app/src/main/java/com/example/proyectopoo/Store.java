@@ -72,6 +72,10 @@ public class Store extends User implements Serializable {
                 .collection("Products")
                 .document();
 
+        DocumentReference documentReference1 = firebaseFirestore
+                .collection("AllProducts")
+                .document();
+
         Product finalproduct = (Product) product;
 
         getInfo(new FirestoreCallback() {
@@ -99,6 +103,20 @@ public class Store extends User implements Serializable {
                                 public void onFailure(@NonNull Exception e) {
                                     Toast.makeText(context,"Error en el registro del producto",Toast.LENGTH_SHORT).show();
                                 }
+                            });
+
+                    documentReference1
+                            .set(productInfo)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(context,"Registro de producto exitoso",Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                 @Override
+                                 public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(context,"Error en el registro del producto",Toast.LENGTH_SHORT).show();
+                                 }
                             });
                 }
             }
