@@ -6,37 +6,70 @@
     android:layout_height="match_parent"
     tools:context=".loginClient">
 
-    <TextView
-        android:id="@+id/userfullname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="168dp"
-        android:layout_marginLeft="168dp"
-        android:layout_marginTop="124dp"
-        android:text="Cliente :)"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
-        android:layout_marginLeft="144dp"
-        android:layout_marginTop="72dp"
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="567dp"
+        android:layout_height="112dp"
+        android:layout_marginTop="511dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/abanner"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-56dp" />
+
+    <ImageButton
+        android:id="@+id/signUpProductActivity"
+        android:layout_width="94dp"
+        android:layout_height="78dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/efecto_bl"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.738"
+        app:layout_constraintStart_toEndOf="@+id/button7"
+        app:layout_constraintTop_toTopOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/btnbl1"
+        tools:ignore="MissingConstraints" />
+
+    <ImageButton
+        android:id="@+id/button7"
+        android:layout_width="94dp"
+        android:layout_height="78dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/efecto_bk"
         android:onClick="Back"
-        android:text="@string/backBtn"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/typeofuserinfo" />
+        app:layout_constraintTop_toTopOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/btnbk1"
+        tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/typeofuserinfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="164dp"
-        android:layout_marginLeft="164dp"
-        android:layout_marginTop="48dp"
-        android:text="TextView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="384dp"
+        android:layout_height="442dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userfullname" />
+        app:layout_constraintTop_toBottomOf="@+id/search"
+        tools:ignore="MissingConstraints" />
+
+    <SearchView
+        android:id="@+id/search"
+        android:layout_width="387dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
