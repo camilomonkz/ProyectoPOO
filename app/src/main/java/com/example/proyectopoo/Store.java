@@ -67,12 +67,6 @@ public class Store extends User implements Serializable {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
         DocumentReference documentReference = firebaseFirestore
-                .collection("Users")
-                .document(id)
-                .collection("Products")
-                .document();
-
-        DocumentReference documentReference1 = firebaseFirestore
                 .collection("AllProducts")
                 .document();
 
@@ -90,22 +84,9 @@ public class Store extends User implements Serializable {
                     productInfo.put("description",finalproduct.getDescription());
                     productInfo.put("price",finalproduct.getPrice());
                     productInfo.put("stock",finalproduct.getStock());
+                    productInfo.put("storeName",fullname);
 
                     documentReference
-                            .set(productInfo)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(context,"Registro de producto exitoso",Toast.LENGTH_SHORT).show();
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(context,"Error en el registro del producto",Toast.LENGTH_SHORT).show();
-                                }
-                            });
-
-                    documentReference1
                             .set(productInfo)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -128,9 +109,7 @@ public class Store extends User implements Serializable {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
         DocumentReference documentReference = firebaseFirestore
-                .collection("Users")
-                .document(id)
-                .collection("Products")
+                .collection("AllProducts")
                 .document(product.getId());
 
         HashMap<String,Object> productInfo = new HashMap<>();
@@ -139,6 +118,7 @@ public class Store extends User implements Serializable {
         productInfo.put("description",product.getDescription());
         productInfo.put("price",product.getPrice());
         productInfo.put("stock",product.getStock());
+        productInfo.put("storeName",fullname);
 
         documentReference
                 .update(productInfo)
@@ -150,7 +130,7 @@ public class Store extends User implements Serializable {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(context,"Fallo en edicion del producto",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Fallo en la modificación del producto",Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -159,9 +139,7 @@ public class Store extends User implements Serializable {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
         DocumentReference documentReference = firebaseFirestore
-                .collection("Users")
-                .document(id)
-                .collection("Products")
+                .collection("AllProducts")
                 .document(product.getId());
 
         documentReference
@@ -186,11 +164,10 @@ public class Store extends User implements Serializable {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
         CollectionReference collectionReference = firebaseFirestore
-                .collection("Users")
-                .document(id)
-                .collection("Products");
+                .collection("AllProducts");
+
         collectionReference
-                .whereEqualTo("name",productName)
+                .whereEqualTo("name",productName).whereEqualTo("storeName",fullname)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override

@@ -1,5 +1,6 @@
 package com.example.proyectopoo;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,12 +16,18 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
-public class loginStore extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class loginStore extends AppCompatActivity    {
     private ImageButton singUpProductActivity;
     private RecyclerView recyclerViewProducts;
     private Adapter adapter;
@@ -51,17 +58,23 @@ public class loginStore extends AppCompatActivity {
 
         firebaseFirestore = FirebaseFirestore.getInstance();
 
-        Query query = firebaseFirestore
-                .collection("AllProducts");
+        CollectionReference collectionReference = firebaseFirestore.collection("AllProducts");
 
-        FirestoreRecyclerOptions<Product> firestoreRecyclerOptions = new FirestoreRecyclerOptions.Builder<Product>()
-                .setQuery(query,Product.class).build();
+        collectionReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                List<Product> listProducts = new ArrayList<>();
+                if(task.getResult() != null){
+                    for(DocumentSnapshot documentSnapshot : task.getResult()){
+                        listProducts.add(documentSnapshot.toObject(Product.class));
+                    }
+                    adapter = new Adapter(listProducts);
+                    recyclerViewProducts.setAdapter(adapter);
+                }
 
+            }
+        });
 
-        adapter = new Adapter(firestoreRecyclerOptions);
-        adapter.notifyDataSetChanged();
-
-        recyclerViewProducts.setAdapter(adapter);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -71,8 +84,8 @@ public class loginStore extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                buscar(newText);
-                return true;
+                adapter.getFilter().filter(newText);
+                return false;
             }
         });
 
@@ -91,7 +104,7 @@ public class loginStore extends AppCompatActivity {
         });
 
     }
-
+    /*
     private void buscar(String newText) {
 
         Query busqueda = firebaseFirestore
@@ -105,10 +118,11 @@ public class loginStore extends AppCompatActivity {
 
         recyclerViewProducts.setAdapter(adapter);
     }
-
+    */
     public void Back(View view){
         Intent back = new Intent(getApplicationContext(),MainActivity.class);
         startActivity(back);
         finish();
     }
+
 }

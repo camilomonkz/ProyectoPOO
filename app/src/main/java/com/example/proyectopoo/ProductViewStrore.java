@@ -57,9 +57,9 @@ public class ProductViewStrore extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
 
         Query query = firebaseFirestore
-                .collection("Users")
-                .document(finalStore.getId())
-                .collection("Products");
+                .collection("AllProducts")
+                .whereEqualTo("storeName",finalStore.getFullname());
+
 
         FirestoreRecyclerOptions<Product> firestoreRecyclerOptions = new FirestoreRecyclerOptions.Builder<Product>()
                 .setQuery(query,Product.class).build();

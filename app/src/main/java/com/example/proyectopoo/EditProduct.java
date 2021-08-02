@@ -1,10 +1,13 @@
 package com.example.proyectopoo;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,6 +50,8 @@ public class EditProduct extends AppCompatActivity {
 
         editProductBtn = (Button) findViewById(R.id.editBtnEdidtP);
 
+        Log.d("id",finalProduct.getId());
+
         editProductBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +71,8 @@ public class EditProduct extends AppCompatActivity {
                             Integer.parseInt(productStock),
                             finalProduct.getId());
 
-                    finalStore.editProductInfo(productEdit,finalStore.getId(),getApplicationContext());
+
+                    finalStore.editProductInfo(productEdit,finalStore.getId(),EditProduct.this);
 
                     Intent intent = new Intent(getApplicationContext(),ProductViewStrore.class);
                     Bundle bundle = new Bundle();
@@ -88,16 +94,36 @@ public class EditProduct extends AppCompatActivity {
         deleteProductBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finalStore.deleteProduct(finalProduct,finalStore.getId(),getApplicationContext());
+                AlertDialog.Builder alertDelete = new AlertDialog.Builder(EditProduct.this );
 
-                Intent intent = new Intent(getApplicationContext(),ProductViewStrore.class);
-                Bundle bundle = new Bundle();
+                alertDelete.setMessage("Desea eliminar el producto "+finalProduct.getName())
+                        .setCancelable(false)
+                        .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finalStore.deleteProduct(finalProduct,finalStore.getId(),getApplicationContext());
 
-                bundle.putSerializable("Store",finalStore);
-                intent.putExtras(bundle);
+                                Intent intent = new Intent(getApplicationContext(),ProductViewStrore.class);
+                                Bundle bundle = new Bundle();
 
-                startActivity(intent);
-                finish();
+                                bundle.putSerializable("Store",finalStore);
+                                intent.putExtras(bundle);
+
+                                startActivity(intent);
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                alertDelete.setTitle("Eliminación de producto");
+
+                AlertDialog dialog = alertDelete.create();
+
+                dialog.show();
 
             }
         });
