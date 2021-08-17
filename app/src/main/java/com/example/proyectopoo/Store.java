@@ -23,19 +23,49 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Store extends User implements Serializable {
-    private String email, fullname, type, id;
+    private String email, fullname, type, id,storeName,phoneNumber,location;
 
-    public Store(String email, String fullname, String type) {
-        this.email = email;
-        this.fullname = fullname;
-        this.type = type;
-    }
-
-    public Store(String email, String fullname, String type, String id) {
+    public Store(String email, String fullname, String type, String id,String storeName, String phoneNumber,String location) {
         this.email = email;
         this.fullname = fullname;
         this.type = type;
         this.id = id;
+        this.storeName = storeName;
+        this.phoneNumber = phoneNumber;
+        this.location = location;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public void setEmail(String email) {
@@ -84,7 +114,7 @@ public class Store extends User implements Serializable {
                     productInfo.put("description",finalproduct.getDescription());
                     productInfo.put("price",finalproduct.getPrice());
                     productInfo.put("stock",finalproduct.getStock());
-                    productInfo.put("storeName",fullname);
+                    productInfo.put("storeName",storeName);
 
                     documentReference
                             .set(productInfo)
@@ -101,7 +131,7 @@ public class Store extends User implements Serializable {
                             });
                 }
             }
-        },id,finalproduct.getName());
+        },finalproduct.getName());
 
     }
 
@@ -135,7 +165,7 @@ public class Store extends User implements Serializable {
         });
     }
 
-    public void deleteProduct(Product product,String id, Context context){
+    public void deleteProduct(Product product, Context context){
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
         DocumentReference documentReference = firebaseFirestore
@@ -157,7 +187,7 @@ public class Store extends User implements Serializable {
         });
     }
 
-    private void getInfo(FirestoreCallback firestoreCallback, String id, String productName){
+    private void getInfo(FirestoreCallback firestoreCallback, String productName){
 
         ArrayList<String> productList = new ArrayList<>();
 
@@ -167,7 +197,7 @@ public class Store extends User implements Serializable {
                 .collection("AllProducts");
 
         collectionReference
-                .whereEqualTo("name",productName).whereEqualTo("storeName",fullname)
+                .whereEqualTo("name",productName).whereEqualTo("storeName",storeName)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override

@@ -7,7 +7,7 @@
     tools:context=".AddProduct">
 
     <EditText
-        android:id="@+id/productName"
+        android:id="@+id/productNameAddCar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
@@ -22,7 +22,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewprovisional" />
 
     <EditText
-        android:id="@+id/productDescription"
+        android:id="@+id/productDescriptionAddCar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
@@ -34,7 +34,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productName" />
+        app:layout_constraintTop_toBottomOf="@+id/productNameAddCar" />
 
     <EditText
         android:id="@+id/productPrice"
@@ -49,7 +49,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/productDescriptionAddCar" />
 
     <EditText
         android:id="@+id/productStock"
@@ -88,7 +88,8 @@
         android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/abanner"
-        tools:layout_editor_absoluteX="-36dp" />
+        tools:layout_editor_absoluteX="-36dp"
+        tools:ignore="MissingConstraints" />
 
     <ImageButton
         android:id="@+id/backBtnAddP"

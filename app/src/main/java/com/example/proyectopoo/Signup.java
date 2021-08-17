@@ -90,6 +90,9 @@ public class Signup extends AppCompatActivity {
                                 typeOfUser[0] = "cliente";
                             }else if(btStore.isChecked()){
                                 typeOfUser[0] = "tienda";
+                                dataUser.put("storeName","null");
+                                dataUser.put("phoneNumber","null");
+                                dataUser.put("location","null");
                             }
 
                             dataUser.put("fullname",fullname);

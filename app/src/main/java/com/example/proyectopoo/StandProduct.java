@@ -34,13 +34,14 @@ public class StandProduct extends FirestoreRecyclerAdapter< Product, StandProduc
 
         holder.productName.setText(product.getName());
         holder.productDescription.setText(product.getDescription());
-        holder.productPrice.setText(String.valueOf(product.getPrice()));
-        holder.productStock.setText(String.valueOf(product.getStock()));
+        holder.productPrice.setText("Precio: $"+String.valueOf(product.getPrice()));
+        holder.productStock.setText("Unds: "+String.valueOf(product.getStock()));
 
         Product finalProduct = new Product(product.getName(),
                 product.getDescription(),
                 product.getPrice(),
                 product.getStock(),
+                store.getStoreName(),
                 productID);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -18,7 +18,7 @@
         tools:layout_editor_absoluteX="-56dp" />
 
     <ImageButton
-        android:id="@+id/button7"
+        android:id="@+id/backBtnSC"
         android:layout_width="94dp"
         android:layout_height="78dp"
         android:layout_marginStart="28dp"
@@ -35,7 +35,7 @@
         tools:ignore="MissingConstraints" />
 
     <ImageButton
-        android:id="@+id/signUpProductActivity"
+        android:id="@+id/ShoppingCartBtn"
         android:layout_width="94dp"
         android:layout_height="78dp"
         android:layout_marginTop="10dp"
@@ -44,7 +44,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.738"
-        app:layout_constraintStart_toEndOf="@+id/button7"
+        app:layout_constraintStart_toEndOf="@+id/backBtnSC"
         app:layout_constraintTop_toTopOf="@+id/imageView4"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/btnh1"

@@ -1,10 +1,9 @@
 package com.example.proyectopoo;
 
 import java.io.Serializable;
-import java.util.HashMap;
 
 public class Product implements Serializable {
-    private String name, description, id;
+    private String name, description, id, storeName;
     private float price;
     private int stock;
 
@@ -18,12 +17,21 @@ public class Product implements Serializable {
         this.stock = stock;
     }
 
-    public Product(String name, String description,float price, int stock,String id){
+    public Product(String name, String description,float price, int stock,String storeName,String id){
         this.name = name;
         this.description = description;
         this.price = price;
         this.stock = stock;
         this.id = id;
+        this.storeName = storeName;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 
     public String getId() {
@@ -42,8 +50,8 @@ public class Product implements Serializable {
         return description;
     }
 
-    public float getPrice(){
-        return price;
+    public int getPrice(){
+        return (int) price;
     }
 
     public int getStock(){
@@ -65,4 +73,5 @@ public class Product implements Serializable {
     public void setStock(int stock){
         this.stock = stock;
     }
+
 }

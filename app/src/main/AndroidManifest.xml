@@ -9,7 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoPOO">
-        <activity android:name=".EditProduct"></activity>
+        <activity
+            android:name=".ShoppingCart"
+            android:exported="true" />
+        <activity
+            android:name=".PorfileForm"
+            android:exported="true" />
+        <activity
+            android:name=".AddToCar"
+            android:exported="true" />
+        <activity android:name=".EditProduct" />
         <activity android:name=".ProgressBarLogin" />
         <activity android:name=".ProductViewStrore" />
         <activity android:name=".AddProduct" />

@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,7 +53,10 @@ public class ProgressBarLogin extends Activity {
                             Store store = new Store(user.getEmail(),
                                     value.getString("fullname"),
                                     value.getString("typeOfUser"),
-                                    userID);
+                                    userID,
+                                    value.getString("storeName"),
+                                    value.getString("phoneNumber"),
+                                    value.getString("location"));
 
                             Intent intent = new Intent(getApplicationContext(),loginStore.class);
                             Bundle bundle = new Bundle();

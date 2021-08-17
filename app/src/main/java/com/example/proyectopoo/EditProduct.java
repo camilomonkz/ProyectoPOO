@@ -69,6 +69,7 @@ public class EditProduct extends AppCompatActivity {
                             productDescription,
                             Float.parseFloat(productPrice),
                             Integer.parseInt(productStock),
+                            finalStore.getStoreName(),
                             finalProduct.getId());
 
 
@@ -101,7 +102,7 @@ public class EditProduct extends AppCompatActivity {
                         .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                finalStore.deleteProduct(finalProduct,finalStore.getId(),getApplicationContext());
+                                finalStore.deleteProduct(finalProduct,getApplicationContext());
 
                                 Intent intent = new Intent(getApplicationContext(),ProductViewStrore.class);
                                 Bundle bundle = new Bundle();

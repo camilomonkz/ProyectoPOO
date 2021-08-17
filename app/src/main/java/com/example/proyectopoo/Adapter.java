@@ -1,5 +1,7 @@
 package com.example.proyectopoo;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,42 +12,40 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.firebase.ui.firestore.ObservableSnapshotArray;
-import com.google.firebase.firestore.DocumentSnapshot;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> implements Filterable  {
-    List<Product> arrayProducts;
-    List<Product> arrayAllProducts;
+public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> implements Filterable {
+    private List<Product> arrayProducts;
+    private List<Product> arrayAllProducts;
+    private String type,activity;
+    private Object object;
+    private Client client;
 
-    public Adapter(List<Product> arrayProducts) {
+    public Adapter(List<Product> arrayProducts,String type,Object object,String activity) {
         this.arrayProducts = arrayProducts;
+        this.type = type;
+        this.object = object;
+        this.activity = activity;
         arrayAllProducts = new ArrayList<>(arrayProducts);
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.element_product_view,viewGroup,false);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.element_product_view, viewGroup, false);
         return new ViewHolder(view);
+
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Product currentProduct = arrayProducts.get(position);
         holder.productName.setText(currentProduct.getName());
         holder.productDescription.setText(currentProduct.getDescription());
-        holder.productPrice.setText(String.valueOf(currentProduct.getPrice()));
-        holder.productStock.setText(String.valueOf(currentProduct.getStock()));
+        holder.productPrice.setText("Precio: $" + String.valueOf(currentProduct.getPrice()));
+        holder.productStock.setText("Unds: " + String.valueOf(currentProduct.getStock()));
 
     }
 
@@ -53,6 +53,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> implements
     public int getItemCount() {
         return arrayProducts.size();
     }
+
 
     @Override
     public Filter getFilter() {
@@ -65,12 +66,15 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> implements
 
         public ViewHolder(@NonNull View itemView){
             super(itemView);
-            productName = itemView.findViewById(R.id.productNameEPV);
-            productDescription = itemView.findViewById(R.id.productDescriptionEPV);
-            productPrice = itemView.findViewById(R.id.productPriceEPV);
-            productStock = itemView.findViewById(R.id.productStockEPV);
+                productName = itemView.findViewById(R.id.productNameEPV);
+                productDescription = itemView.findViewById(R.id.productDescriptionEPV);
+                productPrice = itemView.findViewById(R.id.productPriceEPV);
+                productStock = itemView.findViewById(R.id.productStockEPV);
         }
+
+
     }
+
 
     private Filter filter = new Filter() {
         @Override
