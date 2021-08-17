@@ -148,7 +148,7 @@ public class Store extends User implements Serializable {
         productInfo.put("description",product.getDescription());
         productInfo.put("price",product.getPrice());
         productInfo.put("stock",product.getStock());
-        productInfo.put("storeName",fullname);
+        productInfo.put("storeName",storeName);
 
         documentReference
                 .update(productInfo)

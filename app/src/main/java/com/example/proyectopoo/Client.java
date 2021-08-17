@@ -16,7 +16,6 @@ import java.util.HashMap;
 public class Client extends User implements Serializable {
 
     private String id,email,fullname,type;
-    private FirebaseFirestore firebaseFirestore;
 
     public Client(String email,String fullname,String type,String id){
         this.email = email;
@@ -60,6 +59,7 @@ public class Client extends User implements Serializable {
     }
 
     public void addProdutcCart(Product product, Context context){
+        FirebaseFirestore firebaseFirestore;
         firebaseFirestore = FirebaseFirestore.getInstance();
 
         DocumentReference documentReference = firebaseFirestore
@@ -74,6 +74,7 @@ public class Client extends User implements Serializable {
         productInfo.put("storeName",product.getStoreName());
         productInfo.put("totalPrice",product.getPrice());
         productInfo.put("amountOfProducts",product.getStock());
+        productInfo.put("id",product.getId());
 
         documentReference
                 .set(productInfo)
@@ -89,7 +90,6 @@ public class Client extends User implements Serializable {
                         Toast.makeText( context, "Error al agregar al carrito", Toast.LENGTH_SHORT).show();
                     }
                 });
-        firebaseFirestore.terminate();
     }
 
     public void deletProductCart(Product product, Context context){

@@ -75,7 +75,15 @@ public class AdapterAddProductCart extends RecyclerView.Adapter<AdapterAddProduc
             @Override
             public void onClick(View v) {
                 if(amount != 0) {
-                    client.addProdutcCart(currentProduct, context);
+                    Product cartProduct = new Product(
+                            currentProduct.getName(),
+                            currentProduct.getDescription(),
+                            (currentProduct.getPrice() * amount),
+                            amount,
+                            currentProduct.getStoreName(),
+                            currentProduct.getId()
+                    );
+                    client.addProdutcCart(cartProduct, context);
                 }else{
                     Toast.makeText(context,"No se pueden agregar 0 productos",Toast.LENGTH_SHORT).show();
                 }

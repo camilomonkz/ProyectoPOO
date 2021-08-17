@@ -37,7 +37,7 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.ViewHolder> {
         Product currentProduct = arrayProducts.get(position);
         holder.productName.setText(currentProduct.getName());
         holder.productDescription.setText(currentProduct.getDescription());
-        holder.productPrice.setText("Precio: $" + String.valueOf(currentProduct.getPrice()));
+        holder.productPrice.setText("Precio: $" + String.valueOf(currentProduct.getPrice()* currentProduct.getStock()));
         holder.productStock.setText("Unds: " + String.valueOf(currentProduct.getStock()));
         holder.productStoreName.setText(currentProduct.getStoreName());
 
